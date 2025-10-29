@@ -1,4 +1,5 @@
 <script>
+    import taskTracker from './subcomponents/TaskTracker.vue';
     export default {
         data() {
             return {
@@ -7,6 +8,9 @@
                 taskList: []
             }
         },
+        components:{
+            taskTracker
+        },
         methods: {
             add() {
                 this.taskList.push( { 'desc': this.desc, 'deadline': this.deadline } )
@@ -14,9 +18,12 @@
                 this.deadline = ''
             },
             // TODO: Add a new method, to delete a task completed
+            deleteTask(idx){
+                this.taskList.splice(idx,1);
+            }
             
+            }
         }
-    }
 
 </script>
 
@@ -34,7 +41,8 @@
     <hr>
 
     <!-- TODO: Modify following code -->
-    <task-tracker ></task-tracker>
+     <!-- dont need to specify the argument bcs the child alr specifies it -->
+    <task-tracker v-for="(task,idx) in taskList" :task="task" :idx="idx" :key="idx" @remove-task="deleteTask"></task-tracker>
 
 </template>
 

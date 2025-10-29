@@ -8,6 +8,9 @@
                 posts: [] // array of post objects
             }  
         },
+        components:{
+            blogPost
+        },
         computed: {
             baseUrl() {
                 if (window.location.hostname=='localhost')
@@ -28,12 +31,17 @@
             .catch(error => {
                 this.posts = [{ entry: 'There was an error: ' + error.message }]
             })
-        }
+        },
+        
     }
 </script>
 
 <template>
    <!-- TODO: make use of the 'blog-post' component to display the blog posts -->
+
+
+     <blog-post v-for="post in posts" :subject="post.subject" :entry="post.entry" :mood="post.mood" :key="post.id"></blog-post>
+
 
 </template>
 
